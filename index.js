@@ -61,7 +61,7 @@ var pdffiller = {
             });
 
             childProcess.stdout.on('end', function () {
-                
+
                 fields = output.split("---").slice(1);
 
                 fields.forEach(function (field) {
@@ -117,12 +117,14 @@ var pdffiller = {
             var randomSequence = Math.random().toString(36).substring(7);
             var currentTime = new Date().getTime();
             var FDFinput = fdf.createFdf(fieldValues);
+            var FDFinputString = decode(FDFInput, "utf-8");
+            FDFInput = encode(FDFinputString, "ISO-8859-1");
 
             var args = [sourceFile, "fill_form", '-', "output", '-'];
             if (shouldFlatten) {
                 args.push("flatten");
             }
-            
+
             var childProcess = spawn("pdftk", args);
 
             childProcess.stderr.on('data', function (err) {
@@ -142,11 +144,11 @@ var pdffiller = {
             // now pipe FDF to pdftk
             childProcess.stdin.write(FDFinput);
             childProcess.stdin.end();
-            
+
         });
 
         // bind convenience method toFile for chaining
-        promised.toFile = toFile.bind(null, promised); 
+        promised.toFile = toFile.bind(null, promised);
         return promised;
     },
 
@@ -160,7 +162,7 @@ var pdffiller = {
 
 };
 
-/** 
+/**
  * convenience chainable method for writing to a file (see examples)
  **/
 function toFile (promised, path) {
