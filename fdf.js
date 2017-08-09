@@ -1,5 +1,6 @@
 var fs = require('fs');
 var _ = require('lodash');
+var dateFormat = require('dateformat');
 
 // only this sequence in FDF header requires char codes
 var headerChars = new Buffer(
@@ -39,7 +40,7 @@ var escapeString = function escapeString(value) {
     // format dates
     var out;
     if(value instanceof Date){
-        out = value.toLocaleString('de-DE',{year:'numeric',day:'2-digit',month:'2-digit'});
+        out = dateFormat(value, "dd.mm.yyyy");
     } else {
         out = value.toString();
     }
