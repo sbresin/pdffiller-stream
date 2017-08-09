@@ -118,8 +118,8 @@ var pdffiller = {
             var randomSequence = Math.random().toString(36).substring(7);
             var currentTime = new Date().getTime();
             var FDFinput = fdf.createFdf(fieldValues);
-            var FDFinputString = iconv.decode(FDFInput, "utf-8");
-            FDFInput = iconv.encode(FDFinputString, "ISO-8859-1");
+            var FDFinputString = iconv.decode(FDFinput, "utf-8");
+            FDFinput = iconv.encode(FDFinputString, "ISO-8859-1");
 
             var args = [sourceFile, "fill_form", '-', "output", '-'];
             if (shouldFlatten) {
