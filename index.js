@@ -1,6 +1,7 @@
 var spawn = require('child_process').spawn,
     fdf = require("./fdf.js"),
     _ = require('lodash'),
+    iconv = require('iconv-lite');
     fs = require('fs');
 
 var pdffiller = {
@@ -117,8 +118,8 @@ var pdffiller = {
             var randomSequence = Math.random().toString(36).substring(7);
             var currentTime = new Date().getTime();
             var FDFinput = fdf.createFdf(fieldValues);
-            var FDFinputString = decode(FDFInput, "utf-8");
-            FDFInput = encode(FDFinputString, "ISO-8859-1");
+            var FDFinputString = iconv.decode(FDFInput, "utf-8");
+            FDFInput = iconv.encode(FDFinputString, "ISO-8859-1");
 
             var args = [sourceFile, "fill_form", '-', "output", '-'];
             if (shouldFlatten) {
