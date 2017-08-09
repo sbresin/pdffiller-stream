@@ -36,7 +36,13 @@ var footer = new Buffer(
 )
 
 var escapeString = function escapeString(value) {
-    var out = value.toString();
+    // format dates
+    var out;
+    if(value instanceof Date){
+        out = value.toLocaleString('de-DE',{year:'numeric',day:'2-digit',month:'2-digit'});
+    } else {
+        out = value.toString();
+    }
     out = out.replace(/\\/g, "\\\\");
     out = out.replace(/\(/g, "\\(");
     out = out.replace(/\)/g, "\\)");
@@ -44,7 +50,7 @@ var escapeString = function escapeString(value) {
     return out;
 }
 
-exports.createFdf = function (data) {    
+exports.createFdf = function (data) {
     var body = new Buffer([]);
 
     _.mapKeys(data, function (value, name) {
