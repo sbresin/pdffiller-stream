@@ -6,13 +6,10 @@ var fs = require('fs')
 
 var pdffiller = {
 
-  /*
   mapForm2PDF: function (formFields, convMap) {
     var tmpFDFData = this.convFieldJson2FDF(formFields)
     tmpFDFData = _.mapKeys(tmpFDFData, function (value, key) {
-      try {
-        convMap[key]
-      } catch (err) {
+      if (!convMap.has(key)) {
         return key
       }
       return convMap[key]
@@ -20,7 +17,6 @@ var pdffiller = {
 
     return tmpFDFData
   },
- */
 
   convFieldJson2FDF: function (fieldJson) {
     var _keys = _.map(fieldJson, 'title')
